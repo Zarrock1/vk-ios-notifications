@@ -1,0 +1,24 @@
+services:
+  vk-notifications:
+    build: .
+    container_name: vk-ios-notifications
+    restart: unless-stopped
+    env_file: .env
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # Собственный сервер Bark (необязательно): docker compose --profile bark up -d
+  # Тогда в .env: BARK_URL=http://bark-server:8080, а ключ берётся из приложения
+  # Bark после добавления в нём вашего сервера.
+  bark-server:
+    image: finab/bark-server:latest
+    container_name: bark-server
+    profiles: ["bark"]
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./bark-data:/data

@@ -5,6 +5,8 @@ VK_IM = "https://vk.com/im?sel="
 CHAT_ID_OFFSET: int = 2_000_000_000
 
 AUTH_ERROR_CODES: tuple[int, ...] = (5, 1117)
+# Ошибки доступа при подключении к Long Poll: токен есть, но для сообщений не годится
+ACCESS_ERROR_CODES: tuple[int, ...] = (7, 15, 27, 28)
 
 ATTACHMENT_NAMES: dict[str, str] = {
     "photo": "Фотография",
@@ -30,10 +32,13 @@ FORWARDED_NAME: str = "Пересланное сообщение"
 REPLY_NAME: str = "Ответ на сообщение"
 UNKNOWN_ATTACHMENT_NAME: str = "Вложение"
 
-READ_CHECK_DELAY: int = 2
-
 REQUEST_TIMEOUT: int = 30
 LONG_POLL_WAIT: int = 25
 RECONNECT_DELAY: int = 5
 MAX_RECONNECT_DELAY: int = 300
 STABLE_CONNECTION_TIME: int = 60
+AUTH_RETRY_DELAY: int = 1800
+HANDLER_WORKERS: int = 4
+
+BARK_MAX_BODY_LENGTH: int = 1000
+BARK_RETRIES: int = 3

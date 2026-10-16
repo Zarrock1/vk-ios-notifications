@@ -1,8 +1,8 @@
 # Byte-compiled / optimized / DLL files
 
-**pycache**/
-_.py[codz]
-_$py.class
+__pycache__/
+*.py[codz]
+*$py.class
 
 # C extensions
 
@@ -297,3 +297,5 @@ marimo/\_lsp/
 # Streamlit
 
 .streamlit/secrets.toml
+
+bark-data/
