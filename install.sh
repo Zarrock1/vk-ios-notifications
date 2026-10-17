@@ -43,7 +43,8 @@ if [ ! -f .env ]; then
     [ -r /dev/tty ] || fail "нет терминала для ввода токенов: создайте $INSTALL_DIR/.env по образцу sample.env"
     echo
     echo "Токен VK: инструкция — https://github.com/Zarrock1/vk-ios-notifications#как-получить-токен-vk"
-    read -r -s -p "VK_TOKEN (ввод скрыт): " vk_token < /dev/tty; echo
+    read -r -s -p "VK_TOKEN или вся адресная строка после входа (ввод скрыт): " vk_token < /dev/tty; echo
+    echo "Получено символов: ${#vk_token}"
     read -r -p "Ключ Bark или ссылка из приложения (https://api.day.app/...): " bark_token < /dev/tty
     [ -n "$vk_token" ] && [ -n "$bark_token" ] || fail "токены не могут быть пустыми"
     umask 077

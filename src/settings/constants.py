@@ -4,7 +4,7 @@ VK_IM = "https://vk.com/im?sel="
 
 CHAT_ID_OFFSET: int = 2_000_000_000
 
-AUTH_ERROR_CODES: tuple[int, ...] = (5, 1117)
+AUTH_ERROR_CODES: tuple[int, ...] = (5, 1116, 1117)
 # Ошибки доступа при подключении к Long Poll: токен есть, но для сообщений не годится
 ACCESS_ERROR_CODES: tuple[int, ...] = (7, 15, 27, 28)
 

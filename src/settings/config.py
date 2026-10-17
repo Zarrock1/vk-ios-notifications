@@ -34,7 +34,11 @@ class Settings(BaseSettings):
             self.BARK_URL = f"{parts.scheme}://{parts.netloc}"
         self.BARK_TOKEN = token.strip("/")
         self.BARK_URL = self.BARK_URL.strip().rstrip("/")
-        self.VK_TOKEN = self.VK_TOKEN.strip()
+        # Токен можно вставить вместе с адресной строкой: https://oauth.vk.com/blank.html#access_token=...&expires_in=0
+        vk_token = self.VK_TOKEN.strip()
+        if "access_token=" in vk_token:
+            vk_token = vk_token.split("access_token=", 1)[1].split("&", 1)[0]
+        self.VK_TOKEN = vk_token
         return self
 
 
