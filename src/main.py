@@ -4,7 +4,7 @@ import sys
 from loguru import logger
 
 from src.core.bark import Bark
-from src.core.exceptions import VKAPIError
+from src.core.exceptions import VKAPIError, VKAuthError
 from src.core.vk import VKListener
 from src.settings.config import settings
 
@@ -16,9 +16,12 @@ def check(listener: VKListener, bark: Bark) -> bool:
         logger.info(f"VK: токен принадлежит пользователю {listener.get_account_name()}")
         listener.get_long_poll_server()
         logger.info("VK: доступ к сообщениям (Long Poll) есть")
-    except VKAPIError as error:
+    except VKAuthError as error:
         logger.error(f"VK: {error}")
         ok = False
+    except VKAPIError as error:
+        # Flood control, сетевые сбои и т.п. — сервис сам переподключится
+        logger.warning(f"VK: временная ошибка, сервис будет повторять попытки: {error}")
     logger.info(f"Bark: отправляю тестовое уведомление через {settings.BARK_URL}")
     if bark.notification("VK уведомления", "Тестовое уведомление: Bark настроен правильно"):
         logger.info("Bark: уведомление отправлено, проверьте iPhone")
