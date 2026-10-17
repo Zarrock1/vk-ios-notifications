@@ -58,7 +58,7 @@ info "Собираю образ"
 docker compose build -q
 
 info "Проверяю токены (на iPhone должно прийти тестовое уведомление)"
-if ! docker compose run --rm vk-notifications python -m src.main check; then
+if ! docker compose run --rm -T vk-notifications python -m src.main check; then
     fail "проверка не прошла — исправьте $INSTALL_DIR/.env (nano $INSTALL_DIR/.env) и запустите скрипт снова"
 fi
 

@@ -31,7 +31,7 @@
 | `[27] Group authorization failed` | это токен сообщества, а нужен токен **пользователя** |
 | `Bark вернул ошибку: 400 ... device token` | неверный `BARK_TOKEN` или ключ от другого сервера Bark |
 
-Быстро всё проверить: `docker compose run --rm vk-notifications python -m src.main check`.
+Быстро всё проверить: `docker compose run --rm -T vk-notifications python -m src.main check`.
 Команда проверит токен VK и пришлёт тестовый push.
 
 ## Как получить токен VK
@@ -95,7 +95,7 @@ cd vk-ios-notifications
 cp sample.env .env
 nano .env                                   # впишите VK_TOKEN и BARK_TOKEN
 
-docker compose run --rm vk-notifications python -m src.main check   # проверка
+docker compose run --rm -T vk-notifications python -m src.main check   # проверка
 docker compose up -d --build                # запуск в фоне, стартует вместе с сервером
 docker compose logs -f                      # логи
 ```

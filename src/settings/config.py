@@ -24,13 +24,15 @@ class Settings(BaseSettings):
 
     @model_validator(mode="after")
     def _normalize_bark(self) -> "Settings":
-        # Из приложения Bark удобно копировать ссылку целиком: https://api.day.app/KEY/
-        token = self.BARK_TOKEN.strip().strip("/")
+        # Из приложения Bark удобно копировать ссылку целиком, в том числе пример
+        # вида https://api.day.app/KEY/title/body?group=... — ключ идёт первым в пути
+        token = self.BARK_TOKEN.strip()
         if token.startswith(("http://", "https://")):
             parts = urlsplit(token)
-            path, _, token = parts.path.rstrip("/").rpartition("/")
-            self.BARK_URL = f"{parts.scheme}://{parts.netloc}{path}"
-        self.BARK_TOKEN = token
+            segments = [segment for segment in parts.path.split("/") if segment]
+            token = segments[0] if segments else ""
+            self.BARK_URL = f"{parts.scheme}://{parts.netloc}"
+        self.BARK_TOKEN = token.strip("/")
         self.BARK_URL = self.BARK_URL.strip().rstrip("/")
         self.VK_TOKEN = self.VK_TOKEN.strip()
         return self
