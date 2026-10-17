@@ -76,6 +76,15 @@ BARK_TOKEN=xxxxxxxx
 | `READ_CHECK_DELAY` | `2` | через сколько секунд проверить, не прочитано ли сообщение на другом устройстве; `0` — не проверять |
 | `NOTIFY_STARTUP` | `true` | присылать push при запуске сервиса |
 
+## Установка на сервер одной командой
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/Zarrock1/vk-ios-notifications/main/install.sh | sudo bash
+```
+
+Скрипт поставит Docker (если его нет), скачает проект в `/opt/vk-ios-notifications`, спросит токены,
+проверит их тестовым уведомлением и запустит сервис. Повторный запуск обновляет сервис.
+
 ## Установка на сервер (Docker Compose)
 
 Подойдёт любой VPS с Linux и установленным Docker.
